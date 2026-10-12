@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 import { useEffect, useRef, useState } from "react";
 
 // ---------- EDIT YOUR CONTENT HERE ----------
@@ -375,6 +384,10 @@ function Home() {
     document.body.style.overflow = "";
     document.getElementById(id)?.scrollIntoView();
   };
+  const jump = (id) => (e) => {
+    e.preventDefault();
+    go(id);
+  };
 
   return (
     <>
@@ -391,7 +404,7 @@ function Home() {
         <nav>
           {NAV.map((l, i) => (
             <span key={l}>
-              <a style={i === 0 && p < 1 ? { color: "#ff2a14" } : null} onClick={() => go(l.toLowerCase())}>{l}</a>
+              <a href={`#${l.toLowerCase()}`} style={i === 0 && p < 1 ? { color: "#ff2a14" } : null} onClick={jump(l.toLowerCase())}>{l}</a>
               {i < NAV.length - 1 && " / "}
             </span>
           ))}
@@ -401,7 +414,7 @@ function Home() {
 
       <div className={`menu ${open ? "open" : ""}`}>
         {NAV.map((l, i) => (
-          <a key={l} style={{ transitionDelay: open ? `${i * 60}ms` : "0ms" }} onClick={() => go(l.toLowerCase())}>{l}</a>
+          <a key={l} href={`#${l.toLowerCase()}`} style={{ transitionDelay: open ? `${i * 60}ms` : "0ms" }} onClick={jump(l.toLowerCase())}>{l}</a>
         ))}
         <small>{CITY} · {HOURS}</small>
       </div>
@@ -433,8 +446,8 @@ function Home() {
         <div className="pad" style={{ paddingTop: 30 }}>
           <Tilt deg={-4} className="h1">Highlights</Tilt>
           <div className="links">
-            <a>The Work<sup>[{PROJECTS.length}]</sup> →</a>
-            <a onClick={() => go("about")}>About me →</a>
+            <a href="#work" onClick={jump("work")}>The Work<sup>[{PROJECTS.length}]</sup> →</a>
+            <a href="#about" onClick={jump("about")}>About me →</a>
           </div>
         </div>
 
